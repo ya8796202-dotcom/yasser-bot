@@ -37,17 +37,18 @@
       if(!text) return;
       addMessage('user', text);
       input.value = '';
-      // ابعت للسيرفر
-      const resp = await fetch('http://localhost:3000/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages:[{role:"user",content:text}] })
-      });
-      const data = await resp.json();
-      addMessage('bot', data.reply);
+      try {
+        const resp = await fetch('http://localhost:3000/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages:[{role:"user",content:text}] })
+        });
+        const data = await resp.json();
+        addMessage('bot', data.reply);
+      } catch (err) {
+        addMessage('bot', "⚠️ في مشكلة في الاتصال بالسيرفر.");
+      }
     }
   </script>
 </body>
 </html>
-
- 
