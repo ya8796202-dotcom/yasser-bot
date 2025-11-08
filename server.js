@@ -10,7 +10,7 @@ app.post('/api/chat', async (req, res) => {
   const { messages = [] } = req.body;
   const last = messages[messages.length - 1]?.content || '';
 
-  // هنا بنبعت السؤال لـ API الذكاء الاصطناعي
+  // استدعاء خدمة الذكاء الاصطناعي (OpenAI كمثال)
   const resp = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
