@@ -12,13 +12,12 @@ app.post('/api/chat', async (req, res) => {
   const last = messages[messages.length - 1]?.content || '';
 
   try {
-    // استدعاء خدمة الذكاء الاصطناعي
     const resp = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         // 🔑 هنا بتحط المفتاح بتاعك
-        "Authorization": "Bearer ضع_المفتاح_هنا"
+        "Authorization": "Bearer sk-proj-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"
       },
       body: JSON.stringify({
         model: "gpt-4o-mini", // تقدر تغيّر الموديل حسب المتاح
@@ -42,4 +41,3 @@ app.post('/api/chat', async (req, res) => {
 });
 
 app.listen(3000, () => console.log("✅ السيرفر شغال على http://localhost:3000"));
-
