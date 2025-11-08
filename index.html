@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <title>بوت معلوماتي مع ياسر</title>
+  <title>بوت ذكي مع ياسر</title>
   <style>
     body { font-family: "Cairo", sans-serif; background:#121416; color:#e9eef3; margin:0; }
     header { background:#2ecc71; padding:15px; font-weight:bold; }
@@ -16,7 +16,7 @@
   </style>
 </head>
 <body>
-  <header>🤖 بوت معلوماتي — تعلم الأردوينو مع ياسر</header>
+  <header>🤖 بوت ذكي — تعلم الأردوينو مع ياسر</header>
   <div class="chat" id="chat"></div>
   <footer>
     <textarea id="input" placeholder="اسأل أي سؤال..."></textarea>
@@ -24,7 +24,6 @@
   </footer>
   <script>
     const chat = document.getElementById('chat');
-
     function addMessage(role, text) {
       const div = document.createElement('div');
       div.className = 'msg ' + role;
@@ -32,30 +31,23 @@
       chat.appendChild(div);
       chat.scrollTop = chat.scrollHeight;
     }
-
-    function send() {
+    async function send() {
       const input = document.getElementById('input');
       const text = input.value.trim();
       if(!text) return;
       addMessage('user', text);
       input.value = '';
-
-      // قاعدة معلومات بسيطة
-      let reply = "ما عنديش معلومة عن ده، جرّب سؤال تاني.";
-
-      if(text.includes("الأردوينو")) {
-        reply = "الأردوينو لوحة إلكترونية مفتوحة المصدر بتسهل البرمجة والتحكم في الحساسات والمحركات.";
-      } else if(text.includes("LED")) {
-        reply = "كود تشغيل LED بالأردوينو:\n\nvoid setup(){ pinMode(13, OUTPUT); }\nvoid loop(){ digitalWrite(13, HIGH); delay(1000); digitalWrite(13, LOW); delay(1000); }";
-      } else if(text.includes("الروبوت")) {
-        reply = "تقدر تبني روبوت بالأردوينو باستخدام محركات DC أو Servo مع حساس مسافة (Ultrasonic).";
-      } else if(text.includes("الطاقة")) {
-        reply = "الأردوينو بيشتغل عادة على 5V أو 3.3V حسب نوع اللوحة.";
-      }
-
-      setTimeout(()=> addMessage('bot', reply), 500);
+      // ابعت للسيرفر
+      const resp = await fetch('http://localhost:3000/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages:[{role:"user",content:text}] })
+      });
+      const data = await resp.json();
+      addMessage('bot', data.reply);
     }
   </script>
 </body>
 </html>
+
  
