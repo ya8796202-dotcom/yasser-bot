@@ -1,17 +1,43 @@
-<!-- workouts.html -->
-<div id="workouts"></div>
-<script>
-fetch('data/workouts.json').then(r=>r.json()).then(data=>{
-  const el=document.getElementById('workouts');
-  data.forEach(day=>{
-    const table = `<h3>${day.name}</h3><table><tr><th>التمرين</th><th>مجموعات</th><th>عدات</th><th>راحة</th><th>تسجيل</th></tr>
-      ${day.exercises.map(e=>`<tr><td>${e.name}</td><td>${e.sets}</td><td>${e.reps}</td><td>${e.rest}</td>
-      <td><button onclick="log('${e.name}')">سجل</button></td></tr>`).join('')}
-    </table>`;
-    el.insertAdjacentHTML('beforeend',table);
-  });
-});
-function log(name){ const t=prompt('عدد العدات المنفذة لـ '+name); if(!t) return;
-  const arr=JSON.parse(localStorage.getItem('logs')||'[]'); arr.push({name, value:+t, date:Date.now()}); localStorage.setItem('logs',JSON.stringify(arr)); alert('تم التسجيل'); drawChart();
-}
-</script>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>المتابعة — تقدمك</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="site-header container">
+    <div class="brand"><div class="logo">🛠️</div><div><div class="site-title">ياسر الرياضي</div></div></div>
+    <nav class="main-nav"><a href="index.html">الرئيسية</a><a href="workouts.html">التمارين</a><a href="progress.html" class="active">المتابعة</a></nav>
+  </header>
+
+  <main class="container">
+    <h2>سجل التقدم</h2>
+    <div class="card">
+      <label>أدخل وزنك الآن (كجم)</label>
+      <input id="weightInput" type="number" placeholder="مثال: 78" />
+      <button class="btn primary" onclick="saveWeight()">حفظ الوزن</button>
+    </div>
+
+    <div class="card">
+      <h3>مخطط التقدم (آخر 12 إدخال)</h3>
+      <canvas id="progressChart" width="800" height="300"></canvas>
+    </div>
+
+    <div class="card">
+      <h3>سجل النشاط</h3>
+      <div id="logsList"></div>
+      <button class="btn" onclick="clearLogs()">مسح السجلات</button>
+    </div>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="assets/js/main.js"></script>
+  <script>
+    // تحميل وعرض السجلات والمخطط
+    renderLogs();
+    drawProgressChart('progressChart');
+  </script>
+</body>
+</html>
