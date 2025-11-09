@@ -1,0 +1,17 @@
+<h2>📊 متابعة تقدمك</h2>
+<p>سجل وزنك أو عدد التمارين وشوف تطورك:</p>
+
+<input type="number" id="weight" placeholder="أدخل وزنك (كجم)">
+<button onclick="saveProgress()">حفظ</button>
+
+<div id="progress-log"></div>
+
+<script>
+function saveProgress() {
+  const w = document.getElementById('weight').value;
+  const log = document.getElementById('progress-log');
+  const entry = document.createElement('p');
+  entry.textContent = "وزنك الحالي: " + w + " كجم ✅";
+  log.appendChild(entry);
+}
+</script>
