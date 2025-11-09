@@ -1,17 +1,17 @@
-<h2>📊 متابعة تقدمك</h2>
-<p>سجل وزنك أو عدد التمارين وشوف تطورك:</p>
-
-<input type="number" id="weight" placeholder="أدخل وزنك (كجم)">
-<button onclick="saveProgress()">حفظ</button>
-
-<div id="progress-log"></div>
-
+<!-- workouts.html -->
+<div id="workouts"></div>
 <script>
-function saveProgress() {
-  const w = document.getElementById('weight').value;
-  const log = document.getElementById('progress-log');
-  const entry = document.createElement('p');
-  entry.textContent = "وزنك الحالي: " + w + " كجم ✅";
-  log.appendChild(entry);
+fetch('data/workouts.json').then(r=>r.json()).then(data=>{
+  const el=document.getElementById('workouts');
+  data.forEach(day=>{
+    const table = `<h3>${day.name}</h3><table><tr><th>التمرين</th><th>مجموعات</th><th>عدات</th><th>راحة</th><th>تسجيل</th></tr>
+      ${day.exercises.map(e=>`<tr><td>${e.name}</td><td>${e.sets}</td><td>${e.reps}</td><td>${e.rest}</td>
+      <td><button onclick="log('${e.name}')">سجل</button></td></tr>`).join('')}
+    </table>`;
+    el.insertAdjacentHTML('beforeend',table);
+  });
+});
+function log(name){ const t=prompt('عدد العدات المنفذة لـ '+name); if(!t) return;
+  const arr=JSON.parse(localStorage.getItem('logs')||'[]'); arr.push({name, value:+t, date:Date.now()}); localStorage.setItem('logs',JSON.stringify(arr)); alert('تم التسجيل'); drawChart();
 }
 </script>
