@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Push",
+    "desc": "صدر - أكتاف - ترايسبس",
+    "exercises": [
+      {"name":"Bench Press","sets":4,"reps":"6-8","rest":"90s","muscle":"صدر","equipment":"بار/دامبل"},
+      {"name":"Incline Dumbbell Press","sets":3,"reps":"8-10","rest":"75s","muscle":"صدر علوي","equipment":"دامبل"},
+      {"name":"Shoulder Press","sets":4,"reps":"6-8","rest":"90s","muscle":"أكتاف","equipment":"بار/دامبل"},
+      {"name":"Triceps Dips","sets":3,"reps":"8-12","rest":"60s","muscle":"ترايسبس","equipment":"وزن جسم"}
+    ]
+  },
+  {
+    "name": "Pull",
+    "desc": "ظهر - بايسبس",
+    "exercises": [
+      {"name":"Pull Ups","sets":4,"reps":"6-10","rest":"90s","muscle":"ظهر","equipment":"بار"},
+      {"name":"Barbell Row","sets":4,"reps":"6-8","rest":"90s","muscle":"ظهر","equipment":"بار"},
+      {"name":"Face Pulls","sets":3,"reps":"12-15","rest":"60s","muscle":"كتف خلفي","equipment":"كابل"},
+      {"name":"Biceps Curl","sets":3,"reps":"8-12","rest":"60s","muscle":"بايسبس","equipment":"دامبل"}
+    ]
+  },
+  {
+    "name": "Legs",
+    "desc": "أرجل",
+    "exercises": [
+      {"name":"Squats","sets":4,"reps":"6-8","rest":"120s","muscle":"أرجل","equipment":"بار"},
+      {"name":"Lunges","sets":3,"reps":"10-12","rest":"75s","muscle":"أرجل","equipment":"دامبل"},
+      {"name":"Leg Press","sets":3,"reps":"8-12","rest":"90s","muscle":"أرجل","equipment":"ماكينة"},
+      {"name":"Calf Raises","sets":4,"reps":"12-15","rest":"45s","muscle":"ساق","equipment":"وزن جسم"}
+    ]
+  }
+]
