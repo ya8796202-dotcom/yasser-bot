@@ -1,28 +1,14 @@
-<h2>💪 نظام Push Pull Legs</h2>
-
-<div class="workout-card">
-  <h3>Push (صدر + ترايسبس + أكتاف)</h3>
-  <ul>
-    <li>Bench Press</li>
-    <li>Shoulder Press</li>
-    <li>Triceps Dips</li>
-  </ul>
-</div>
-
-<div class="workout-card">
-  <h3>Pull (ظهر + بايسبس)</h3>
-  <ul>
-    <li>Pull Ups</li>
-    <li>Barbell Row</li>
-    <li>Biceps Curl</li>
-  </ul>
-</div>
-
-<div class="workout-card">
-  <h3>Legs (أرجل)</h3>
-  <ul>
-    <li>Squats</li>
-    <li>Lunges</li>
-    <li>Leg Press</li>
-  </ul>
-</div>
+<!-- progress.html -->
+<canvas id="chart" width="600" height="200"></canvas>
+<script>
+function drawChart(){
+  const logs=JSON.parse(localStorage.getItem('logs')||'[]');
+  const ctx=document.getElementById('chart').getContext('2d');
+  ctx.clearRect(0,0,600,200);
+  if(!logs.length) return;
+  const points=logs.slice(-10);
+  ctx.beginPath(); points.forEach((p,i)=>{ const x=50+i*50, y=180-(p.value*2); if(i==0) ctx.moveTo(x,y); else ctx.lineTo(x,y); ctx.fillText(p.name, x-20,190);});
+  ctx.stroke();
+}
+drawChart();
+</script>
