@@ -1,19 +1,27 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <title>شات شبكتي</title>
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <style>
+    body { font-family: "Cairo", sans-serif; background:#f0f2f5; margin:0; }
+    #chat { max-width:600px; margin:20px auto; background:#fff; border-radius:10px; padding:20px; }
+    .msg { padding:10px; margin:5px; border-radius:8px; animation: fadeIn 0.5s ease; }
+    .fromMe { background:#dcf8c6; text-align:right; }
+    .fromOther { background:#eee; text-align:left; }
+    @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+  </style>
 </head>
 <body>
-  <h1>شات شبكتي</h1>
-  <input id="from" placeholder="اسمك">
-  <input id="to" placeholder="إلى">
-  <input id="text" placeholder="اكتب رسالة">
-  <button onclick="send()">إرسال</button>
-
-  <div id="chat"></div>
+  <div id="chat">
+    <h2>شات شبكتي</h2>
+    <input id="from" placeholder="اسمك">
+    <input id="to" placeholder="إلى">
+    <input id="text" placeholder="اكتب رسالة">
+    <button onclick="send()">إرسال</button>
+    <div id="messages"></div>
+  </div>
 
 <script>
 const socket = io("http://localhost:4000");
@@ -28,8 +36,9 @@ function send() {
 
 socket.on("newMessage", (msg) => {
   const div = document.createElement("div");
-  div.textContent = msg.from + " → " + msg.to + ": " + msg.text;
-  document.getElementById("chat").appendChild(div);
+  div.className = "msg " + (msg.from === document.getElementById("from").value ? "fromMe":"fromOther");
+  div.textContent = msg.from + ": " + msg.text;
+  document.getElementById("messages").appendChild(div);
 });
 </script>
 </body>
